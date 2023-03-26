@@ -13,6 +13,14 @@
 (function() {
     'use strict';
     var $ = window.jQuery;
+    clickAction();
+    // Bind a body click for when the USER moves to another page
+    $('body').unbind().on('click', function(event) {
+        clickAction();
+    });
+})();
+
+function clickAction() {
     // Keep trying to add the Start/Stop button after the page loads
     var AddButtonInterval = setInterval(function(){
         if ($('#Start').length > 0){
@@ -55,4 +63,4 @@
             });
         }
     }, 2000);
-})();
+}
