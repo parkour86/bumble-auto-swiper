@@ -13,51 +13,46 @@
 (function() {
     'use strict';
     var $ = window.jQuery;
-    setTimeout(function() {
-        // Keep trying to add the buttons after the page loads
-        var AddButtonInterval = setInterval(function(){
-            if ($('#Start').length > 0){
-                clearInterval(AddButtonInterval);
-                return false;
-            }else{
-                $('main.page__content .page__header').after("<div id='Start'><a href='#'>Start</a></div>");
-                $('main.page__content .page__header').after("<div id='Stop' style='display:none'><a href='#'>Stop</a></div>");
-                $('main.page__content .page__header').after(`<div id='Counter'>Swipes: 0</div>`);
-            }
-        }, 2000);
-        // Body Click Functions
-        $('body').unbind().on('click', function(e) {
-            setTimeout(function() {
-                var cnt = 0;
-
-                $('#Start').unbind().on('click', function(e) {
-                    $('#Start').hide();
-                    $('#Stop').show();
-                    var storeTimeInterval = setInterval(function(){
-                        if ($('#Start').is(":visible") || $('.encounters-user__blocker').length > 0){
-                            clearInterval(storeTimeInterval);
-                            $('#Start').show();
-                            $('#Stop').hide();
-                            console.log('stopped')
-                            return false;
-                        }
-                        // Create a click element
+    // Keep trying to add the Start/Stop button after the page loads
+    var AddButtonInterval = setInterval(function(){
+        if ($('#Start').length > 0){
+            clearInterval(AddButtonInterval);
+            return false;
+        }else{
+            $('main.page__content .page__header').after("<div id='Start'><a href='#'>Start</a></div>");
+            $('main.page__content .page__header').after("<div id='Stop' style='display:none'><a href='#'>Stop</a></div>");
+            $('main.page__content .page__header').after(`<div id='Counter'>Swipes: 0</div>`);
+            var cnt = 0;
+            // Set click action on the Start button
+            $('#Start').unbind().on('click', function(e) {
+                $('#Start').hide();
+                $('#Stop').show();
+                // Loop until the USER clicks Stop or the USER runs out of likes
+                var storeTimeInterval = setInterval(function(){
+                    if ($('#Start').is(":visible") || $('.encounters-user__blocker').length > 0){
+                        clearInterval(storeTimeInterval);
+                        $('#Start').show();
+                        $('#Stop').hide();
+                        console.log('stopped')
+                        return false;
+                    }
+                    // Verify the Like button is visible on the page
+                    if ($('div[data-qa-role="encounters-action-like"]').length > 0){
+                        // Click the Like button and increment the counter
                         var clickEvent = document.createEvent("HTMLEvents");
                         clickEvent.initEvent("click", true, true);
                         $('div[data-qa-role="encounters-action-like"]')[0].dispatchEvent(clickEvent);
                         console.log('running')
                         cnt+=1;
                         $('#Counter').text(cnt);
-                    }, 1000);
-                });
-
-                $('#Stop').unbind().on('click', function(e) {
-                    $('#Start').show();
-                    $('#Stop').hide();
-                });
-            }, 1000);
-        });
-    }, 5000);
+                    }
+                }, 1000);
+            });
+            // Set click action on the Stop button
+            $('#Stop').unbind().on('click', function(e) {
+                $('#Start').show();
+                $('#Stop').hide();
+            });
+        }
+    }, 2000);
 })();
-
-
