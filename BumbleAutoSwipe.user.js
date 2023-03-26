@@ -14,15 +14,21 @@
     'use strict';
     var $ = window.jQuery;
     setTimeout(function() {
+        // Keep trying to add the buttons after the page loads
+        var AddButtonInterval = setInterval(function(){
+            if ($('#Start').length > 0){
+                clearInterval(AddButtonInterval);
+                return false;
+            }else{
+                $('main.page__content .page__header').after("<div id='Start'><a href='#'>Start</a></div>");
+                $('main.page__content .page__header').after("<div id='Stop' style='display:none'><a href='#'>Stop</a></div>");
+                $('main.page__content .page__header').after(`<div id='Counter'>Swipes: 0</div>`);
+            }
+        }, 2000);
         // Body Click Functions
         $('body').unbind().on('click', function(e) {
             setTimeout(function() {
                 var cnt = 0;
-                if ($('#Start').length == 0){
-                    $('main.page__content .page__header').after("<div id='Start'><a href='#'>Start</strong></a>");
-                    $('main.page__content .page__header').after("<div id='Stop' style='display:none'><a href='#'>Stop</a></div>");
-                    $('main.page__content .page__header').after(`<div id='Counter'>Swipes: ${cnt}</div>`);
-                }
 
                 $('#Start').unbind().on('click', function(e) {
                     $('#Start').hide();
@@ -48,11 +54,10 @@
                 $('#Stop').unbind().on('click', function(e) {
                     $('#Start').show();
                     $('#Stop').hide();
-                    
                 });
             }, 1000);
         });
-    }, 10000);
+    }, 5000);
 })();
 
 
