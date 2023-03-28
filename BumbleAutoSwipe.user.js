@@ -24,7 +24,7 @@ function clickAction() {
     // Keep trying to add the Start/Stop button after the page loads
     var AddButtonInterval = setInterval(function(){
         if ($('#Start').length > 0){
-            clearInterval(AddButtonInterval);
+            clearInterval(AddBu\ttonInterval);
             return false;
         }else{
             $('main.page__content .page__header').after("<div id='Start'><a href='#'>Start</a></div>");
@@ -35,22 +35,29 @@ function clickAction() {
             $('#Start').unbind().on('click', function(e) {
                 $('#Start').hide();
                 $('#Stop').show();
+                // Click the Continue Searching button
+                var clickEvent = document.createEvent("HTMLEvents");
+                clickEvent.initEvent("click", true, true);
                 // Loop until the USER clicks Stop or the USER runs out of likes
                 var storeTimeInterval = setInterval(function(){
                     if ($('#Start').is(":visible") || $('.encounters-user__blocker').length > 0){
                         clearInterval(storeTimeInterval);
                         $('#Start').show();
                         $('#Stop').hide();
-                        console.log('stopped')
+                        console.log('stopped');
                         return false;
+                    }
+                    // If a Match was found then click continue and keep running
+                    if ($('article[data-qa-role="encounters-match"]').length > 0){
+                        // Two buttons are displayed, click the second one
+                        $('div[data-qa-role="button"]')[1].dispatchEvent(clickEvent);
+                        console.log("Match Detected")
                     }
                     // Verify the Like button is visible on the page
                     if ($('div[data-qa-role="encounters-action-like"]').length > 0){
-                        // Click the Like button and increment the counter
-                        var clickEvent = document.createEvent("HTMLEvents");
-                        clickEvent.initEvent("click", true, true);
+                        // Click the Like button
                         $('div[data-qa-role="encounters-action-like"]')[0].dispatchEvent(clickEvent);
-                        console.log('running')
+                        console.log('running');
                         cnt+=1;
                         $('#Counter').text(cnt);
                     }
