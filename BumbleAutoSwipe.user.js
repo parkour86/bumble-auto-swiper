@@ -24,7 +24,7 @@ function clickAction() {
     // Keep trying to add the Start/Stop button after the page loads
     var AddButtonInterval = setInterval(function(){
         if ($('#Start').length > 0){
-            clearInterval(AddBu\ttonInterval);
+            clearInterval(AddButtonInterval);
             return false;
         }else{
             $('main.page__content .page__header').after("<div id='Start'><a href='#'>Start</a></div>");
@@ -55,11 +55,20 @@ function clickAction() {
                     }
                     // Verify the Like button is visible on the page
                     if ($('div[data-qa-role="encounters-action-like"]').length > 0){
-                        // Click the Like button
-                        $('div[data-qa-role="encounters-action-like"]')[0].dispatchEvent(clickEvent);
-                        console.log('running');
-                        cnt+=1;
-                        $('#Counter').text(cnt);
+                        // Make sure the persons height is between 5'2" and 5'7"
+                        var height = $('.p-3.text-ellipsis.font-weight-medium:eq(0)').text().replace(/\'|\s/g,"");
+                        console.log("height: ",height)
+                        if (height < 50 || height > 57){
+                            // Click the Skip button
+                            $('div[data-qa-role="encounters-action-dislike"]')[0].dispatchEvent(clickEvent);
+                            console.log('Dislike');
+                        }else{
+                            // Click the Like button
+                            $('div[data-qa-role="encounters-action-like"]')[0].dispatchEvent(clickEvent);
+                            console.log('Like');
+                            cnt+=1;
+                            $('#Counter').text(cnt);
+                        }
                     }
                 }, 1000);
             });
