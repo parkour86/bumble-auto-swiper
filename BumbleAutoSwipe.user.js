@@ -55,20 +55,11 @@ function clickAction() {
                     }
                     // Verify the Like button is visible on the page
                     if ($('div[data-qa-role="encounters-action-like"]').length > 0){
-                        // Make sure the persons height is between 5'2" and 5'7"
-                        var height = $('.p-3.text-ellipsis.font-weight-medium:eq(0)').text().replace(/\'|\s/g,"");
-                        console.log("height: ",height)
-                        if (height < 50 || height > 57){
-                            // Click the Skip button
-                            $('div[data-qa-role="encounters-action-dislike"]')[0].dispatchEvent(clickEvent);
-                            console.log('Dislike');
-                        }else{
-                            // Click the Like button
-                            $('div[data-qa-role="encounters-action-like"]')[0].dispatchEvent(clickEvent);
-                            console.log('Like');
-                            cnt+=1;
-                            $('#Counter').text(cnt);
-                        }
+                        // Click the Like button
+                        $('div[data-qa-role="encounters-action-like"]')[0].dispatchEvent(clickEvent);
+                        console.log('Like');
+                        cnt+=1;
+                        $('#Counter').text(cnt);
                     }
                 }, 1000);
             });
