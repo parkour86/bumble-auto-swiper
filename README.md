@@ -1,5 +1,5 @@
 # bumble-auto-swiper
-Auto like bot for Bumble
+Auto like bot for Bumble - ⚠️ Click function is no longer working. Bumble added code to prevent scripts like this.
 
 # How to use
 1. Install Tampermonkey in your browser ([Firefox Install](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/)/[Chrome Install](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en))
