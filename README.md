@@ -10,6 +10,7 @@ Auto like bot for Bumble
 5. Click on the Start button on the left of the page
 6. Let it do it's job until your out of likes
 
-# Additional Tool - BumbleDetectMatches.user.js
-Detect Matches before swiping
+# Additional Tool
+BumbleDetectMatches.user.js - Detect Matches before swiping
+
 This tool will color the `Like` button Green if the user wants to Match with you.
