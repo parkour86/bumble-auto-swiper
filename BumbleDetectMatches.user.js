@@ -31,18 +31,21 @@
         const match = current_matches[current_match_index];
 
         // Check if the match has voted or not
-        if (!match?.user?.their_vote || match.user.their_vote === '1') {
+        if (match?.user?.their_vote === 1) {
             console.log(`${match.user.name} haven't voted yet`);  // Log if the match hasn't voted
             return;
         }
 
         // Determine if the match is a "like" or "nope"
-        const is_match = match.user.their_vote === '2';
+        const is_match = match.user.their_vote === 2;
+        console.log("their_vote", is_match)
 
         try {
             // Find the like button using jQuery and set its color based on the vote
             const v_icon = $('.encounters-action.tooltip-activator.encounters-action--like').first();
             v_icon.find('svg').attr('fill', is_match ? 'green' : 'red');
+            // Remove the path tag coloring
+            v_icon.find('path').attr('fill', is_match ? 'green' : '');
         } catch (e) {
             console.log(e);  // Log any errors that occur
         }
