@@ -22,6 +22,22 @@
         // Extract matches from the data
         current_matches = data.body[0].client_encounters.results;
         console.log(current_matches);  // Log the matches to the console for debugging
+
+        // Iterate over each match and print the user names, age and height
+        current_matches.forEach(match => {
+            if (match.user && match.user.name) {  // Ensure user and name exist
+                const name = match.user.name;
+                const age = match.user.age;
+
+                // Find the lifestyle_height in the profile fields
+                const profileFields = match.user.profile_fields || [];  // Adjust property name if necessary
+                const heightField = profileFields.find(field => field.id === 'lifestyle_height');
+                const lifestyleHeight = heightField ? heightField.display_value : 'Not Available';  // Get height value
+
+                console.log(`Name: ${name}, Age ${age}, Height: ${lifestyleHeight}`);
+            }
+        });
+
         return data;  // Return the data as is
     };
 
@@ -29,12 +45,6 @@
     const match_handler = () => {
         // Get the current match based on the index
         const match = current_matches[current_match_index];
-
-        // Check if the match has voted or not
-        if (match?.user?.their_vote === 1) {
-            console.log(`${match.user.name} haven't voted yet`);  // Log if the match hasn't voted
-            return;
-        }
 
         // Determine if the match is a "like" or "nope"
         const is_match = match.user.their_vote === 2;
@@ -45,9 +55,15 @@
             const v_icon = $('.encounters-action.tooltip-activator.encounters-action--like').first();
             v_icon.find('svg').attr('fill', is_match ? 'green' : 'red');
             // Remove the path tag coloring
-            v_icon.find('path').attr('fill', is_match ? 'green' : '');
+            v_icon.find('path').attr('fill', '');
         } catch (e) {
             console.log(e);  // Log any errors that occur
+        }
+
+        // Check if the match has voted or not
+        if (match?.user?.their_vote === 1) {
+            console.log(`${match.user.name} haven't voted yet`);  // Log if the match hasn't voted
+            return;
         }
     };
 
