@@ -56,6 +56,17 @@
             v_icon.find('svg').attr('fill', is_match ? 'green' : 'red');
             // Remove the path tag coloring
             v_icon.find('path').attr('fill', '');
+
+            const k_icon = $('.encounters-action.tooltip-activator.encounters-action--dislike').first();
+            k_icon.find('svg').attr('fill', is_match ? 'green' : 'red');
+            // Remove the path tag coloring
+            k_icon.find('path').attr('fill', '');
+
+            // Color the whole border
+            $('.encounters-album__stories-container').css('border', `10px solid ${is_match ? 'green' : 'red'}`);
+
+            // Remove the superswipe button
+            $('.encounters-action--superswipe').hide()
         } catch (e) {
             console.log(e);  // Log any errors that occur
         }
