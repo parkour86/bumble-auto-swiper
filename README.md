@@ -13,4 +13,4 @@ Auto like bot for Bumble - ⚠️ Click function is no longer working. Bumble ad
 # Additional Tool
 BumbleDetectMatches.user.js - Detect Matches before swiping
 
-This tool will color the `Like` button Green if the user wants to Match with you.
+This tool will color the `Like Button`, `Dislike Button` and `Border` Green if the user wants to Match with you.
